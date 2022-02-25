@@ -33,6 +33,16 @@ class _ExamplesPageState extends State<ExamplesPage> {
             onTap: () async {
               await Navigator.pushNamed(context, '/webview-loading');
             },
+          )),
+          Card(
+              child: ListTile(
+            title: const Text(
+              'Webview Communication example',
+              style: TextStyle(fontWeight: FontWeight.w500, color: Colors.blue),
+            ),
+            onTap: () async {
+              await Navigator.pushNamed(context, '/webview-communication');
+            },
           ))
         ],
       ),

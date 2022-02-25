@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sample_app/blocs/counter/counter_bloc.dart';
 import 'package:flutter_sample_app/pages/counter/counter_page.dart';
 import 'package:flutter_sample_app/pages/home/home_page.dart';
+import 'package:flutter_sample_app/pages/webview/webview_communication_example_page.dart';
 import 'package:flutter_sample_app/pages/webview/webview_loading_example_page.dart';
 
 void main() {
@@ -34,7 +35,9 @@ class MyApp extends StatelessWidget {
       routes: {
         '/webview-loading': (BuildContext context) =>
             const WebViewLoadingExamplePage(),
-        '/counter': (BuildContext context) => const CounterPage()
+        '/webview-communication': (BuildContext context) =>
+            const WebViewCommunicationExamplePage(),
+        '/counter': (BuildContext context) => const CounterPage(),
       },
       home: const MyHomePage(),
     );
