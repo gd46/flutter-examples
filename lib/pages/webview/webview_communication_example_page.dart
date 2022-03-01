@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sample_app/shared/constants/loading_state_constants.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-enum MenuOptions { setTitle, openDialog, sendJson }
+enum MenuOptions { setTitle, openDialog, sendJson, routeToFeature }
 
 class WebViewCommunicationExamplePage extends StatefulWidget {
   const WebViewCommunicationExamplePage({Key? key}) : super(key: key);
@@ -57,6 +57,10 @@ class _WebViewCommunicationExamplePageState
                       _controller.runJavascript(
                           'Container.sendJson({"title": "Test"})');
                       break;
+                    case MenuOptions.routeToFeature:
+                      _controller.runJavascript(
+                          'Container.routeToFeature({uri: "/test"})');
+                      break;
                   }
                 },
                 itemBuilder: (context) => [
@@ -67,7 +71,11 @@ class _WebViewCommunicationExamplePageState
                           value: MenuOptions.openDialog,
                           child: Text('Open Dialog')),
                       const PopupMenuItem(
-                          value: MenuOptions.sendJson, child: Text('Send Json'))
+                          value: MenuOptions.sendJson,
+                          child: Text('Send Json')),
+                      const PopupMenuItem(
+                          value: MenuOptions.routeToFeature,
+                          child: Text('Route to Feature'))
                     ])
           ],
         ),
