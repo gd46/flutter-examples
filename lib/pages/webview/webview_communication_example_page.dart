@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_sample_app/shared/constants/loading_state_constants.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 enum MenuOptions { setTitle, openDialog, sendJson, routeToFeature }
 
@@ -51,7 +52,7 @@ class _WebViewCommunicationExamplePageState
                           .runJavascript('Container.setTitle("From Flutter")');
                       break;
                     case MenuOptions.openDialog:
-                      _controller.runJavascript('Container.openDialog()');
+                      _controller.runJavascript('Container.openModal()');
                       break;
                     case MenuOptions.sendJson:
                       _controller.runJavascript(
@@ -119,6 +120,7 @@ class _WebViewCommunicationExamplePageState
                   setState(() {
                     loadingState = LOADING_STATE.loadingCompleted;
                   });
+                  _loadFlutterBridgeFromAssets();
                 },
                 onWebViewCreated: (WebViewController webviewController) {
                   _controller = webviewController;
@@ -134,5 +136,11 @@ class _WebViewCommunicationExamplePageState
    */
   _loadHtmlFromAssets() async {
     _controller.loadFlutterAsset('assets/index.html');
+  }
+
+  _loadFlutterBridgeFromAssets() async {
+    final flutterBirdge =
+        await rootBundle.loadString('assets/flutter-bridge.js');
+    await _controller.runJavascript(flutterBirdge);
   }
 }
