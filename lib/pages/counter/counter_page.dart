@@ -43,26 +43,39 @@ class _CounterPage extends State<CounterPage> {
         title: const Text('Counter Example'),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            BlocBuilder<CounterBloc, CounterState>(
-              builder: (context, state) {
-                return Text(
-                  state.counter.toString(),
-                  style: Theme.of(context).textTheme.headline4,
-                );
-              },
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  context.read<CounterBloc>().add(DecreaseCountEvent());
-                },
-                child: const Text('Decrease Counter'))
-          ],
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                alignment: WrapAlignment
+                    .center, // use spaceBetween here to push text and count to opposite ends
+                children: [
+                  const Text(
+                    'You have pushed the button this many times:',
+                  ),
+                  BlocBuilder<CounterBloc, CounterState>(
+                    builder: (context, state) {
+                      return Text(
+                        state.counter.toString(),
+                        maxLines: 4,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.headline4,
+                      );
+                    },
+                  ),
+                ],
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    context.read<CounterBloc>().add(DecreaseCountEvent());
+                  },
+                  child: const Text('Decrease Counter'))
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
