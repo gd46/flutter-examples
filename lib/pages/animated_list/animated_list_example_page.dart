@@ -11,11 +11,11 @@ class AnimatedListExamplePage extends StatefulWidget {
 }
 
 class _AnimatedListExamplePageState extends State<AnimatedListExamplePage> {
-  final GlobalKey<AnimatedListState> _key = GlobalKey();
+  late GlobalKey<AnimatedListState> _key = GlobalKey();
   var counterStream =
       Stream<int>.periodic(const Duration(seconds: 1), (x) => x).take(15);
   late StreamSubscription? counterSub;
-  late List<int> data = [2];
+  late List<int> data = [];
 
   @override
   void initState() {
@@ -23,7 +23,8 @@ class _AnimatedListExamplePageState extends State<AnimatedListExamplePage> {
     super.initState();
     counterSub = counterStream.listen((event) {
       setState(() {
-        data[0] = event;
+        data.add(event);
+        _key = GlobalKey();
       });
       // data.insert(0, event);
       // _key.currentState!.insertItem(event);
