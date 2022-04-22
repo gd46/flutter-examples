@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_sample_app/blocs/counter/counter_bloc.dart';
+import 'package:flutter_sample_app/pages/animated_list/animated_list_example_page.dart';
 import 'package:flutter_sample_app/pages/counter/counter_page.dart';
 import 'package:flutter_sample_app/pages/home/home_page.dart';
 import 'package:flutter_sample_app/pages/webview/webview_communication_example_page.dart';
@@ -38,6 +39,8 @@ class MyApp extends StatelessWidget {
         '/webview-communication': (BuildContext context) =>
             const WebViewCommunicationExamplePage(),
         '/counter': (BuildContext context) => const CounterPage(),
+        '/animated-list': (BuildContext context) =>
+            const AnimatedListExamplePage()
       },
       home: const MyHomePage(),
     );
