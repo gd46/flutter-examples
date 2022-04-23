@@ -49,18 +49,18 @@ class _AnimatedListExamplePageState extends State<AnimatedListExamplePage> {
           _key.currentState!.insertItem(0);
         },
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Container(
-            padding: const EdgeInsets.all(15),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                AnimatedList(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  physics: const NeverScrollableScrollPhysics(),
+      body: Center(
+        child: Container(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: AnimatedList(
+                  // shrinkWrap: true,
+                  // scrollDirection: Axis.vertical,
+                  // physics: const NeverScrollableScrollPhysics(),
                   key: _key,
                   initialItemCount: data.length,
                   itemBuilder: (context, index, animation) {
@@ -80,50 +80,50 @@ class _AnimatedListExamplePageState extends State<AnimatedListExamplePage> {
                         ));
                   },
                 ),
-                // StreamBuilder(
-                //   stream: counterStream,
-                //   builder: (context, state) {
-                //     if (!state.hasData) {
-                //       return Container();
-                //     }
-                //     // return ListView.builder(
-                //     //     itemCount: state.data as int,
-                //     //     scrollDirection: Axis.vertical,
-                //     //     shrinkWrap: true,
-                //     //     itemBuilder: (BuildContext context, index) {
-                //     //       return Card(
-                //     //         child: ListTile(
-                //     //             title: Text(
-                //     //           'Task ${index}',
-                //     //         )),
-                //     //       );
-                //     //     });
-                //     return AnimatedList(
-                //       shrinkWrap: true,
-                //       scrollDirection: Axis.vertical,
-                //       key: _key,
-                //       initialItemCount: state.data as int,
-                //       itemBuilder: (context, index, animation) {
-                //         // SlideTransition(
-                //         //     position: Tween<Offset>(
-                //         //       begin: const Offset(-1, -0.5),
-                //         //       end: const Offset(0, 0),
-                //         //     ).animate(animation),
-                //         return SizeTransition(
-                //             sizeFactor: animation,
-                //             key: UniqueKey(),
-                //             child: Card(
-                //               child: ListTile(
-                //                   title: Text(
-                //                 'Task ${index}',
-                //               )),
-                //             ));
-                //       },
-                //     );
-                //   },
-                // ),
-              ],
-            ),
+              ),
+              // StreamBuilder(
+              //   stream: counterStream,
+              //   builder: (context, state) {
+              //     if (!state.hasData) {
+              //       return Container();
+              //     }
+              //     // return ListView.builder(
+              //     //     itemCount: state.data as int,
+              //     //     scrollDirection: Axis.vertical,
+              //     //     shrinkWrap: true,
+              //     //     itemBuilder: (BuildContext context, index) {
+              //     //       return Card(
+              //     //         child: ListTile(
+              //     //             title: Text(
+              //     //           'Task ${index}',
+              //     //         )),
+              //     //       );
+              //     //     });
+              //     return AnimatedList(
+              //       shrinkWrap: true,
+              //       scrollDirection: Axis.vertical,
+              //       key: _key,
+              //       initialItemCount: state.data as int,
+              //       itemBuilder: (context, index, animation) {
+              //         // SlideTransition(
+              //         //     position: Tween<Offset>(
+              //         //       begin: const Offset(-1, -0.5),
+              //         //       end: const Offset(0, 0),
+              //         //     ).animate(animation),
+              //         return SizeTransition(
+              //             sizeFactor: animation,
+              //             key: UniqueKey(),
+              //             child: Card(
+              //               child: ListTile(
+              //                   title: Text(
+              //                 'Task ${index}',
+              //               )),
+              //             ));
+              //       },
+              //     );
+              //   },
+              // ),
+            ],
           ),
         ),
       ),
