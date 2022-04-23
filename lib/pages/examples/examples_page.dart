@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_sample_app/pages/examples/examples.dart';
 
 class ExamplesPage extends StatefulWidget {
   const ExamplesPage({Key? key}) : super(key: key);
@@ -12,52 +13,23 @@ class _ExamplesPageState extends State<ExamplesPage> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(left: 10, right: 10),
-      child: ListView(
-        children: [
-          Card(
+      child: ListView.builder(
+          itemCount: examples.length,
+          itemBuilder: (BuildContext context, int index) {
+            ExampleCardData _exampleCardData = examples[index];
+            return Card(
               child: ListTile(
-            title: const Text(
-              'Counter example',
-              style: TextStyle(fontWeight: FontWeight.w500, color: Colors.blue),
-            ),
-            onTap: () async {
-              await Navigator.pushNamed(context, '/counter');
-            },
-          )),
-          Card(
-              child: ListTile(
-            title: const Text(
-              'Webview loading example',
-              style: TextStyle(fontWeight: FontWeight.w500, color: Colors.blue),
-            ),
-            onTap: () async {
-              await Navigator.pushNamed(context, '/webview-loading');
-            },
-          )),
-          Card(
-              child: ListTile(
-            title: const Text(
-              'Webview Communication example',
-              style: TextStyle(fontWeight: FontWeight.w500, color: Colors.blue),
-            ),
-            onTap: () async {
-              await Navigator.pushNamed(context, '/webview-communication');
-            },
-          )),
-          Card(
-            child: ListTile(
-              title: const Text(
-                'Animated List',
-                style:
-                    TextStyle(fontWeight: FontWeight.w500, color: Colors.blue),
+                title: Text(
+                  _exampleCardData.title,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w500, color: Colors.blue),
+                ),
+                onTap: () async {
+                  await Navigator.pushNamed(context, _exampleCardData.route);
+                },
               ),
-              onTap: () async {
-                await Navigator.pushNamed(context, '/animated-list');
-              },
-            ),
-          )
-        ],
-      ),
+            );
+          }),
     );
   }
 }

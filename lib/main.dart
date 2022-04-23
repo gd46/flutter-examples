@@ -6,6 +6,7 @@ import 'package:flutter_sample_app/pages/counter/counter_page.dart';
 import 'package:flutter_sample_app/pages/home/home_page.dart';
 import 'package:flutter_sample_app/pages/webview/webview_communication_example_page.dart';
 import 'package:flutter_sample_app/pages/webview/webview_loading_example_page.dart';
+import 'package:flutter_sample_app/shared/constants/route_constants.dart';
 
 void main() {
   runApp(MultiBlocProvider(providers: [
@@ -34,12 +35,12 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/webview-loading': (BuildContext context) =>
+        Routes.webviewLoading: (BuildContext context) =>
             const WebViewLoadingExamplePage(),
-        '/webview-communication': (BuildContext context) =>
+        Routes.webviewCommunication: (BuildContext context) =>
             const WebViewCommunicationExamplePage(),
-        '/counter': (BuildContext context) => const CounterPage(),
-        '/animated-list': (BuildContext context) =>
+        Routes.counter: (BuildContext context) => const CounterPage(),
+        Routes.animatedList: (BuildContext context) =>
             const AnimatedListExamplePage()
       },
       home: const MyHomePage(),
