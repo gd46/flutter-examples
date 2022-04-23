@@ -52,7 +52,7 @@ class _AnimatedListExamplePageState extends State<AnimatedListExamplePage> {
       body: SingleChildScrollView(
         child: Center(
           child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
+            padding: const EdgeInsets.all(15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -60,6 +60,7 @@ class _AnimatedListExamplePageState extends State<AnimatedListExamplePage> {
                 AnimatedList(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
+                  physics: const NeverScrollableScrollPhysics(),
                   key: _key,
                   initialItemCount: data.length,
                   itemBuilder: (context, index, animation) {
@@ -78,7 +79,7 @@ class _AnimatedListExamplePageState extends State<AnimatedListExamplePage> {
                           )),
                         ));
                   },
-                )
+                ),
                 // StreamBuilder(
                 //   stream: counterStream,
                 //   builder: (context, state) {
