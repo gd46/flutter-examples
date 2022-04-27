@@ -12,22 +12,22 @@ class AnimatedListExamplePage extends StatefulWidget {
 
 class _AnimatedListExamplePageState extends State<AnimatedListExamplePage> {
   late GlobalKey<AnimatedListState> _key = GlobalKey();
-  var counterStream =
-      Stream<int>.periodic(const Duration(seconds: 1), (x) => x).take(15);
+  // var counterStream =
+  //     Stream<int>.periodic(const Duration(seconds: 1), (x) => x).take(15);
+  var counterSteeam = Stream<List<int>>.fromFuture(
+    Future.delayed(const Duration(seconds: 2), () => [1, 2, 3, 4]),
+  );
   late StreamSubscription? counterSub;
-  late List<int> data = [];
+  late List<int> data = [2];
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    counterSub = counterStream.listen((event) {
+    counterSub = counterSteeam.listen((event) {
       setState(() {
-        data.add(event);
+        data = event;
         _key = GlobalKey();
       });
-      // data.insert(0, event);
-      // _key.currentState!.insertItem(event);
     });
   }
 
@@ -46,87 +46,52 @@ class _AnimatedListExamplePageState extends State<AnimatedListExamplePage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          _key.currentState!.insertItem(0);
+          insertItem(0, 1);
         },
       ),
-      body: Center(
-        child: Container(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: AnimatedList(
-                  // shrinkWrap: true,
-                  // scrollDirection: Axis.vertical,
-                  // physics: const NeverScrollableScrollPhysics(),
-                  key: _key,
-                  initialItemCount: data.length,
-                  itemBuilder: (context, index, animation) {
-                    // SlideTransition(
-                    //     position: Tween<Offset>(
-                    //       begin: const Offset(-1, -0.5),
-                    //       end: const Offset(0, 0),
-                    //     ).animate(animation),
-                    return SizeTransition(
-                        sizeFactor: animation,
-                        key: UniqueKey(),
-                        child: Card(
-                          child: ListTile(
-                              title: Text(
-                            'Task ${data[index]}',
-                          )),
-                        ));
-                  },
-                ),
+      body: Container(
+        padding: const EdgeInsets.all(15),
+        alignment: Alignment.center,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: AnimatedList(
+                key: _key,
+                initialItemCount: data.length,
+                itemBuilder: (context, index, animation) =>
+                    buildItem(data[index], index, animation),
               ),
-              // StreamBuilder(
-              //   stream: counterStream,
-              //   builder: (context, state) {
-              //     if (!state.hasData) {
-              //       return Container();
-              //     }
-              //     // return ListView.builder(
-              //     //     itemCount: state.data as int,
-              //     //     scrollDirection: Axis.vertical,
-              //     //     shrinkWrap: true,
-              //     //     itemBuilder: (BuildContext context, index) {
-              //     //       return Card(
-              //     //         child: ListTile(
-              //     //             title: Text(
-              //     //           'Task ${index}',
-              //     //         )),
-              //     //       );
-              //     //     });
-              //     return AnimatedList(
-              //       shrinkWrap: true,
-              //       scrollDirection: Axis.vertical,
-              //       key: _key,
-              //       initialItemCount: state.data as int,
-              //       itemBuilder: (context, index, animation) {
-              //         // SlideTransition(
-              //         //     position: Tween<Offset>(
-              //         //       begin: const Offset(-1, -0.5),
-              //         //       end: const Offset(0, 0),
-              //         //     ).animate(animation),
-              //         return SizeTransition(
-              //             sizeFactor: animation,
-              //             key: UniqueKey(),
-              //             child: Card(
-              //               child: ListTile(
-              //                   title: Text(
-              //                 'Task ${index}',
-              //               )),
-              //             ));
-              //       },
-              //     );
-              //   },
-              // ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
+    );
+  }
+
+  Widget buildItem(int item, int index, Animation<double> animation) =>
+      ScaleTransition(
+          scale: animation,
+          key: UniqueKey(),
+          child: Card(
+            child: ListTile(
+              title: Text('Task $item'),
+              onTap: () => removeItem(index),
+            ),
+          ));
+
+  void insertItem(int index, int item) {
+    data.insert(index, item);
+    _key.currentState!.insertItem(index);
+  }
+
+  void removeItem(int index) {
+    final int item = data.removeAt(index);
+
+    _key.currentState!.removeItem(
+      index,
+      (context, animation) => buildItem(item, index, animation),
     );
   }
 }
