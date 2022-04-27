@@ -14,7 +14,7 @@ class _AnimatedListExamplePageState extends State<AnimatedListExamplePage> {
   late GlobalKey<AnimatedListState> _key = GlobalKey();
   // var counterStream =
   //     Stream<int>.periodic(const Duration(seconds: 1), (x) => x).take(15);
-  var counterSteeam = Stream<List<int>>.fromFuture(
+  var counterStream = Stream<List<int>>.fromFuture(
     Future.delayed(const Duration(seconds: 2), () => [1, 2, 3, 4]),
   );
   late StreamSubscription? counterSub;
@@ -23,7 +23,7 @@ class _AnimatedListExamplePageState extends State<AnimatedListExamplePage> {
   @override
   void initState() {
     super.initState();
-    counterSub = counterSteeam.listen((event) {
+    counterSub = counterStream.listen((event) {
       setState(() {
         data = event;
         _key = GlobalKey();
@@ -44,7 +44,7 @@ class _AnimatedListExamplePageState extends State<AnimatedListExamplePage> {
         title: const Text('Animated List Example'),
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           insertItem(0, 1);
         },
