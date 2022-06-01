@@ -21,8 +21,9 @@ class _ExamplesPageState extends State<ExamplesPage> {
               child: ListTile(
                 title: Text(
                   _exampleCardData.title,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w500, color: Colors.blue),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Theme.of(context).textTheme.headline1!.color),
                 ),
                 onTap: () async {
                   await Navigator.pushNamed(context, _exampleCardData.route);

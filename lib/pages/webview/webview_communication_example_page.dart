@@ -3,8 +3,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_sample_app/shared/constants/loading_state_constants.dart';
+import 'package:flutter_sample_app/theme/webview_theme.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import '../../shared/extensions/color_extensions.dart';
 
 enum MenuOptions { setTitle, openDialog, sendJson, routeToFeature }
 
@@ -121,6 +123,7 @@ class _WebViewCommunicationExamplePageState
                     loadingState = LOADING_STATE.loadingCompleted;
                   });
                   _loadFlutterBridgeFromAssets();
+                  _setWebviewStyles();
                 },
                 onWebViewCreated: (WebViewController webviewController) {
                   _controller = webviewController;
@@ -142,5 +145,15 @@ class _WebViewCommunicationExamplePageState
     final flutterBirdge =
         await rootBundle.loadString('assets/flutter-bridge.js');
     await _controller.runJavascript(flutterBirdge);
+  }
+
+  _setWebviewStyles() async {
+    final String webviewTheme = getWebviewTheme(context);
+
+    await _controller.runJavascript('''
+        const style = document.createElement('style');
+        style.textContent = `$webviewTheme`;
+        document.head.append(style);
+    ''');
   }
 }
