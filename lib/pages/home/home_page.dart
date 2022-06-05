@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_sample_app/blocs/counter/counter_bloc.dart';
-import 'package:flutter_sample_app/pages/counter/counter_page.dart';
-import 'package:flutter_sample_app/pages/placeholder/placeholder_page.dart';
 import 'package:flutter_sample_app/pages/examples/examples_page.dart';
+import 'package:flutter_sample_app/pages/placeholder/placeholder_page.dart';
+import 'package:flutter_sample_app/pages/settings/settings_page.dart';
 import 'package:flutter_sample_app/shared/extensions/iterable_extensions.dart';
 
 class Page {
@@ -38,7 +36,12 @@ class _MyHomePageState extends State<MyHomePage> {
         navBarItemLabel: 'Examples',
         navBarIcon: Icon(Icons.gamepad),
         pageTitle: 'Examples',
-        page: ExamplesPage())
+        page: ExamplesPage()),
+    const Page(
+        navBarItemLabel: 'Settings',
+        navBarIcon: Icon(Icons.gamepad),
+        pageTitle: 'Settings',
+        page: SettingsPage())
   ];
 
   @override
